@@ -8,11 +8,11 @@ function AppNavbar() {
     <>
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Navbar.Brand as={NavLink} to='/'>Inicio</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link as={NavLink} to='/'>Inicio</Nav.Link>
             <Nav.Link as={NavLink} to='/productos'>Producto</Nav.Link>
             <Nav.Link as={NavLink} to='/contacto'>Contacto</Nav.Link>
+            <Nav.Link as={NavLink} to='/carrito'>Carrito</Nav.Link>
           </Nav>
         </Container>
       </Navbar>      

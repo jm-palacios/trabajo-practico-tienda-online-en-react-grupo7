@@ -4,9 +4,9 @@ import AppNavbar from './AppNavbar'
 
 function Header() {
   return (
-    <div>
+    <header>
       <AppNavbar />
-    </div>
+    </header>
   )
 }
 
