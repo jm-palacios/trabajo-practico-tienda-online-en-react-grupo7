@@ -4,7 +4,7 @@ import { Productos } from "./pages/Productos";
 function App() {
   return (
     <div>
-      <h1>Catálogo Gamer Universitario</h1>
+      <h1>Catálogo G7</h1>
       <Productos />
     </div>
   );
