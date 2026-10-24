@@ -5,7 +5,7 @@ export const productos = [
     nombre: "The Sims - UnaHur",
     categoria: "Videojuegos",
     precio: 15000,
-    imagen: "/src/assets/sims-unahur.jpeg",
+    imagen:"/img/sims-unahur.jpeg",
     descripcion: "Juego de simulación de estudiantes que sueñan con recibirse.",
     stock: 10
   },
@@ -14,7 +14,7 @@ export const productos = [
     nombre: "Age of Empires II",
     categoria: "Videojuegos",
     precio: 12000,
-    imagen: "",
+    imagen: "/img/age-2.jpg",
     descripcion: "Estrategia en tiempo real, construí tu imperio.",
     stock: 8
   },
@@ -23,7 +23,7 @@ export const productos = [
     nombre: "RollerCoaster Tycoon",
     categoria: "Videojuegos",
     precio: 10000,
-    imagen: "",
+    imagen: "/img/placeholder.jpg",
     descripcion: "Diseñá y gestioná tu propio parque de diversiones.",
     stock: 10
   },
@@ -32,7 +32,7 @@ export const productos = [
     nombre: "Counter-Strike 1.6",
     categoria: "Videojuegos",
     precio: 8000,
-    imagen: "",
+    imagen: "/img/placeholder.jpg",
     descripcion: "Shooter multijugador icónico de cibercafés.",
     stock: 15
   },
@@ -41,7 +41,7 @@ export const productos = [
     nombre: "Need for Speed: Underground",
     categoria: "Videojuegos",
     precio: 11000,
-    imagen: "",
+    imagen: "/img/placeholder.jpg",
     descripcion: "Carreras callejeras con autos tuneados.",
     stock: 9
   },
@@ -50,7 +50,7 @@ export const productos = [
     nombre: "Joystick USB Genérico",
     categoria: "Accesorios",
     precio: 5000,
-    imagen: "",
+    imagen: "/img/placeholder.jpg",
     descripcion: "Joystick clásico para PC, compatible con juegos retro.",
     stock: 20
   },
@@ -59,7 +59,7 @@ export const productos = [
     nombre: "Auriculares Gamer 2000s",
     categoria: "Accesorios",
     precio: 7000,
-    imagen: "",
+    imagen: "/img/placeholder.jpg",
     descripcion: "Auriculares con micrófono incorporado, estilo LAN party.",
     stock: 0
   },
@@ -68,7 +68,7 @@ export const productos = [
     nombre: "Mouse Óptico Genius",
     categoria: "Accesorios",
     precio: 4000,
-    imagen: "",
+    imagen: "/img/placeholder.jpg",
     descripcion: "Mouse óptico clásico, ideal para juegos de estrategia.",
     stock: 25
   },
@@ -77,7 +77,7 @@ export const productos = [
     nombre: "Teclado Mecánico Retro",
     categoria: "Accesorios",
     precio: 9000,
-    imagen: "",
+    imagen: "/img/placeholder.jpg",
     descripcion: "Teclado robusto, sensación old school.",
     stock: 7
   },
@@ -86,7 +86,7 @@ export const productos = [
     nombre: "Monitor CRT 17''",
     categoria: "Accesorios",
     precio: 20000,
-    imagen: "",
+    imagen: "/img/placeholder.jpg",
     descripcion: "Monitor clásico de tubo, nostalgia pura.",
     stock: 0
   },
@@ -95,7 +95,7 @@ export const productos = [
     nombre: "Paquete de Juegos LAN",
     categoria: "Servicios",
     precio: 6000,
-    imagen: "",
+    imagen: "/img/placeholder.jpg",
     descripcion: "Incluye Counter-Strike, Warcraft III y Starcraft.",
     stock: 18
   },
@@ -104,7 +104,7 @@ export const productos = [
     nombre: "Tarjeta Gráfica GeForce FX5200",
     categoria: "Hardware",
     precio: 25000,
-    imagen: "",
+    imagen: "/img/placeholder.jpg",
     descripcion: "Placa de video popular en los 2000 para juegos básicos.",
     stock: 5
   }
