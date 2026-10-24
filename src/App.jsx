@@ -7,7 +7,7 @@ import Carrito from './pages/Carrito';
 function NavbarProvisorio() {
   const { totalItems } = useCart();
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4 py-3 mb-4">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4 py-3 mb-4 shadow-sm">
       <Link className="navbar-brand fw-bold" to="/">Tienda React</Link>
       <div className="navbar-nav ms-auto d-flex flex-row gap-3">
         <Link className="nav-link" to="/">Inicio</Link>
@@ -19,7 +19,7 @@ function NavbarProvisorio() {
     </nav>
   );
 }
-// Vistas provisorias para que no rompa si aún no existen los archivos de tus compañeros
+// Vistas provisorias mientras tus compañeros terminan las suyas
 function HomeProvisorio() {
   return (
     <div className="container text-center py-5">
@@ -31,7 +31,7 @@ function HomeProvisorio() {
 }
 function ProductosProvisorio() {
   const { agregarAlCarrito } = useCart();
-  // Producto de prueba para testear que el carrito sume ítems correctamente
+  // Producto de prueba con imagen real y stock definido para testear los topes
   const productoDemo = {
     id: 1,
     nombre: 'Zapatillas Deportivas Demo',
@@ -42,11 +42,19 @@ function ProductosProvisorio() {
   return (
     <div className="container py-4">
       <h2>Catálogo de Productos (Demo de Prueba)</h2>
-      <div className="card p-3 mt-3" style={{ maxWidth: '300px' }}>
-        <h5>{productoDemo.nombre}</h5>
-        <p className="text-success fw-bold">${productoDemo.precio}</p>
+      <div className="card p-3 mt-3 shadow-sm" style={{ maxWidth: '300px' }}>
+        <img 
+          src={productoDemo.imagen} 
+          alt={productoDemo.nombre} 
+          className="card-img-top mb-2 rounded" 
+          style={{ height: '180px', objectFit: 'cover' }}
+        />
+        <h5 className="card-title">{productoDemo.nombre}</h5>
+        <p className="text-success fw-bold fs-5">${productoDemo.precio.toLocaleString('es-AR')}</p>
+        <p className="text-muted small">Stock disponible: {productoDemo.stock} unidades</p>
         <button
-          className="btn btn-primary"
+          type="button"
+          className="btn btn-primary w-100"
           onClick={() => agregarAlCarrito(productoDemo, 1)}
         >
           Agregar al Carrito

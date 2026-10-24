@@ -1,8 +1,6 @@
 import { createContext, useState, useEffect, useContext } from 'react';
 
-// 1. Crear el contexto
 export const CartContext = createContext();
-// Hook personalizado para usar el carrito fácilmente
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
@@ -10,72 +8,84 @@ export const useCart = () => {
   }
   return context;
 };
-// 2. Proveedor del contexto
 export const CartProvider = ({ children }) => {
-  // Inicializamos el carrito (opcional: intenta leer de localStorage si existe)
+  // Inicialización con try/catch para evitar caídas por datos corruptos
   const [carrito, setCarrito] = useState(() => {
-    const carritoGuardado = localStorage.getItem('carrito_tienda');
-    return carritoGuardado ? JSON.parse(carritoGuardado) : [];
+    try {
+      const guardado = localStorage.getItem('carrito_tienda');
+      return guardado ? JSON.parse(guardado) : [];
+    } catch (error) {
+      console.error('Error al leer de localStorage:', error);
+      return [];
+    }
   });
-  // Guardar en localStorage cada vez que el carrito cambie (Punto extra de persistencia)
+  // Guardado en localStorage
   useEffect(() => {
-    localStorage.setItem('carrito_tienda', JSON.stringify(carrito));
+    try {
+      localStorage.setItem('carrito_tienda', JSON.stringify(carrito));
+    } catch (error) {
+      console.error('Error al guardar en localStorage:', error);
+    }
   }, [carrito]);
-  // Función para agregar producto al carrito
+  // Agregar al carrito con validación de stock
   const agregarAlCarrito = (producto, cantidad = 1) => {
+    const stockDisponible = producto.stock ?? Infinity;
+    if (stockDisponible <= 0) return; // Bloquear si no hay stock
     setCarrito((prevCarrito) => {
       const existe = prevCarrito.find((item) => item.id === producto.id);
       if (existe) {
-        // Si ya está, aumentamos su cantidad respetando el stock disponible si existe
+        const nuevaCantidad = existe.cantidad + cantidad;
+        // Si supera el stock, lo limitamos al máximo disponible
+        if (nuevaCantidad > stockDisponible) {
+          return prevCarrito.map((item) =>
+            item.id === producto.id ? { ...item, cantidad: stockDisponible } : item
+          );
+        }
         return prevCarrito.map((item) =>
-          item.id === producto.id
-            ? { ...item, cantidad: item.cantidad + cantidad }
-            : item
+          item.id === producto.id ? { ...item, cantidad: nuevaCantidad } : item
         );
-      } else {
-        // Si no está, lo agregamos como nuevo ítem
-        return [...prevCarrito, { ...producto, cantidad }];
       }
+      const cantidadInicial = Math.min(cantidad, stockDisponible);
+      return [...prevCarrito, { ...producto, cantidad: cantidadInicial }];
     });
   };
-  // Función para eliminar un producto por completo
-  const eliminarDelCarrito = (id) => {
-    setCarrito((prevCarrito) => prevCarrito.filter((item) => item.id !== id));
-  };
-  // Función para incrementar cantidad (+)
+  // Aumentar cantidad con tope de stock
   const aumentarCantidad = (id) => {
     setCarrito((prevCarrito) =>
-      prevCarrito.map((item) =>
-        item.id === id ? { ...item, cantidad: item.cantidad + 1 } : item
-      )
+      prevCarrito.map((item) => {
+        if (item.id === id) {
+          const maxStock = item.stock ?? Infinity;
+          if (item.cantidad < maxStock) {
+            return { ...item, cantidad: item.cantidad + 1 };
+          }
+        }
+        return item;
+      })
     );
   };
-  // Función para decrementar cantidad (-)
+  // Disminuir cantidad
   const disminuirCantidad = (id) => {
     setCarrito((prevCarrito) =>
       prevCarrito
         .map((item) => {
           if (item.id === id) {
-            return item.cantidad > 1
-              ? { ...item, cantidad: item.cantidad - 1 }
-              : null; // Si llega a 0, se filtra después
+            return item.cantidad > 1 ? { ...item, cantidad: item.cantidad - 1 } : null;
           }
           return item;
         })
         .filter(Boolean)
     );
   };
+  // Eliminar producto
+  const eliminarDelCarrito = (id) => {
+    setCarrito((prevCarrito) => prevCarrito.filter((item) => item.id !== id));
+  };
   // Vaciar carrito
   const vaciarCarrito = () => {
     setCarrito([]);
   };
-  // Cantidad total de productos (para mostrar en el badge del Navbar)
   const totalItems = carrito.reduce((acum, item) => acum + item.cantidad, 0);
-  // Monto total general (suma de precio * cantidad)
-  const totalPrecio = carrito.reduce(
-    (acum, item) => acum + item.precio * item.cantidad,
-    0
-  );
+  const totalPrecio = carrito.reduce((acum, item) => acum + item.precio * item.cantidad, 0);
   return (
     <CartContext.Provider
       value={{
