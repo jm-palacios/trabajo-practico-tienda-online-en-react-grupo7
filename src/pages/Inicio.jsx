@@ -2,9 +2,14 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+
 import { Link } from 'react-router-dom';
 import { FaTruckFast, FaShieldHalved, FaCreditCard, FaHeadset } from 'react-icons/fa6';
+import {productos} from '../data/productos'
+import ProductoCard from '../components/ProductoCard';
+
+//Filtro para mostrar solos los productos destacados
+const productosDesstacados = productos.filter(prod => prod.destacado)
 
 function Inicio() {
   return (
@@ -57,24 +62,11 @@ function Inicio() {
         <Container>
           <h2 className="text-center mb-4 fw-bold">Productos Destacados</h2>
           <Row className="g-4">
-            {/* Ejemplo de tarjeta 1 */}
-            <Col md={4}>
-              <Card className="bg-dark text-white border-secondary h-100 shadow-sm">
-                <Card.Img variant="top" src="https://via.placeholder.com/300x200" alt="Producto" />
-                <Card.Body className="d-flex flex-column">
-                  <Card.Title>Joystick Inalámbrico G7</Card.Title>
-                  <Card.Text className="text-secondary small">
-                    Control de alta precisión con vibración háptica.
-                  </Card.Text>
-                  <div className="mt-auto d-flex justify-content-between align-items-center">
-                    <span className="fs-5 fw-bold">$45.000</span>
-                    <Button variant="outline-primary" size="sm" as={Link} to="/productos">
-                      Ver detalle
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
+            {productosDesstacados.map((producto) => (
+              <Col key={producto.id} md={4}>
+                <ProductoCard producto={producto}/>
+              </Col>
+            ))}
           </Row>
         </Container>
       </section>

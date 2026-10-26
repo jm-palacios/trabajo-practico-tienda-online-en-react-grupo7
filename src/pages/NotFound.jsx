@@ -2,7 +2,7 @@ import React from 'react'
 
 function NotFound() {
   return (
-    <div>
+    <div className="bg-dark text-white">
       Pagina no Encontrada
     </div>
   )

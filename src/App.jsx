@@ -7,6 +7,7 @@ import Contacto from './pages/Contacto'
 import Carrito from './pages/Carrito'
 import NotFound from './pages/NotFound'
 import DetalleProductos from './pages/DetalleProductos'
+import Nosotros from './pages/Nosotros'
 //Importacion de componentes
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -22,6 +23,7 @@ function App() {
                 <Route path='/productos/:id' element={<DetalleProductos />} />
                 <Route path='/carrito' element={<Carrito />} />
                 <Route path='/contacto' element={<Contacto />} />
+                <Route path='/nosotros' element={<Nosotros />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>
             <Footer />

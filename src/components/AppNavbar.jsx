@@ -25,6 +25,7 @@ function AppNavbar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto align-items-center gap-3">
             <Nav.Link as={NavLink} to="/">Inicio</Nav.Link>
+            <Nav.Link as={NavLink} to="/nosotros">Nosotros</Nav.Link>
             <Nav.Link as={NavLink} to="/productos">Productos</Nav.Link>
             <Nav.Link as={NavLink} to="/contacto">Contacto</Nav.Link>
             <Nav.Link as={NavLink} to="/carrito" className="d-flex align-items-center gap-1">
