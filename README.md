@@ -1,16 +1,41 @@
-# React + Vite
+# G7 Games - Plataforma de E-Commerce Gamer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripción Breve
+**G7 Games** es una aplicación web responsive desarrollada con React que simula una tienda en línea orientada al público gamer y retro. La plataforma permite explorar un catálogo dinámico de productos, filtrar por categorías, visualizar detalles de cada ítem, gestionar un carrito de compras interactivo con validación de stock y simular el proceso de compra mediante un formulario.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tecnologías Utilizadas
+* **React** (Componentes funcionales y Hooks)
+* **Vite** (Entorno de desarrollo y empaquetador)
+* **React Router DOM** (Navegación y enrutamiento SPA)
+* **React Bootstrap & Bootstrap 5** (Diseño responsive y componentes UI)
+* **React Icons** (Iconografía temática)
+* **JavaScript (ES6+)** (Manejo de estado global/local e integración de datos)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Características y Funcionalidades
+* **Navegación Fluid (SPA):** Rutas configuradas para Inicio, Productos, Detalle de Producto, Nosotros, Carrito, Contacto y vista 404 (Not Found).
+* **Catálogo Dinámico:** Renderizado de productos desde fuente de datos local con manejo de stock y badges de categoría.
+* **Vista Detalle:** Información ampliada del producto, incluyendo características principales y verificación de disponibilidad.
+* **Estado Global del Carrito:** Context API para agregar, eliminar, modificar cantidades y calcular el total de la compra en tiempo real.
+* **Diseño Dark Gamer:** Estética adaptada con grilla responsive para celulares, tablets y escritorios.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Instrucciones para Instalar y Correr el Proyecto
+
+Sigue estos pasos para ejecutar el proyecto de manera local:
+
+1. **Clonar el repositorio:**
+   ```bash
+   git clone <URL_DEL_REPOSIUTORIO>
+   cd tienda-online-en-react-grupo7
+
+## Integrantes del Grupo (Grupo 7)
+* Franco Nabuloni
+* Mariana Alpern
+* Victor Marquina
+* Miguel Ignacio Sanchez
+* Juan Manuel Palacios   
