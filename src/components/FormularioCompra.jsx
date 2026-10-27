@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function FormularioCompra() { // guardamos todos los datos que usaremos, iniciandolos como vacios, exepto domicilio.
+function FormularioCompra({ onCompraConfirmada }) { // guardamos todos los datos que usaremos, iniciandolos como vacios, exepto domicilio.
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
@@ -33,10 +33,23 @@ function FormularioCompra() { // guardamos todos los datos que usaremos, inician
       return;
     }
 
-    setMensaje(
-      `¡Gracias, ${nombre.trim()} ${apellido.trim()}! Tu formulario se envió correctamente.`
+    if (typeof onCompraConfirmada === "function") {
+      onCompraConfirmada({
+        nombre: nombre.trim(),
+        apellido: apellido.trim(),
+        email: email.trim(),
+        telefono: telefono.trim(),
+        direccion: direccion.trim(),
+        localidad: localidad.trim(),
+        metodoEntrega,
+        aclaraciones: aclaraciones.trim(),
+      });
+    } else {
+      setMensaje(
+        `¡Gracias, ${nombre.trim()} ${apellido.trim()}! Tu formulario se envió correctamente.`
     );
   }
+}
 
   return (
     <section>

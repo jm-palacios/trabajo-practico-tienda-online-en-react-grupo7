@@ -6,9 +6,14 @@ import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { productos } from '../data/productos';
+import { useCart } from '../context/CartContext';
+import { useState } from "react";
+import Alert from "react-bootstrap/Alert";
 
 function DetalleProductos({ onAgregarAlCarrito }) {
   const { id } = useParams();
+  const { agregarAlCarrito } = useCart();
+  const [mensaje, setMensaje] = useState("");
   
   // Buscar producto por ID
   const producto = productos.find((p) => p.id === parseInt(id));
@@ -29,10 +34,11 @@ function DetalleProductos({ onAgregarAlCarrito }) {
   }
 
   const handleAgregar = () => {
-    if (onAgregarAlCarrito) {
-      onAgregarAlCarrito(producto);
+    if (agregarAlCarrito) {
+      agregarAlCarrito(producto);
+      setMensaje(`${producto.nombre} se agregó al carrito.`);
     } else {
-      console.log("Agregado al carrito:", producto);
+      
     }
   };
 
@@ -83,6 +89,19 @@ function DetalleProductos({ onAgregarAlCarrito }) {
                 {producto.stock > 0 ? `Stock disponible: ${producto.stock} unidades` : 'Sin stock disponible'}
               </span>
             </div>
+            
+            {/* MENSAJE AL AGREGAR AL CARRITO */}
+            {mensaje && (
+              <Alert
+                variant="success"
+                dismissible
+                onClose={() => setMensaje("")}
+                className="mb-4"
+              >
+                {mensaje}
+              </Alert>
+            )}
+
 
             {/* CARACTERÍSTICAS PRINCIPALES */}
             {producto.caracteristicas && producto.caracteristicas.length > 0 && (
