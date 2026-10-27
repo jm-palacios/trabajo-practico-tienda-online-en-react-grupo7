@@ -2,6 +2,7 @@ import { useState } from "react";
 
 function FormularioCompra() { // guardamos todos los datos que usaremos, iniciandolos como vacios, exepto domicilio.
   const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
   const [telefono, setTelefono] = useState("");
   const [direccion, setDireccion] = useState("");
@@ -13,9 +14,10 @@ function FormularioCompra() { // guardamos todos los datos que usaremos, inician
   function manejarEnvio(evento) {
     evento.preventDefault();
     {/*trim() eliminar el espacio al comienzo y final del texto.*/}
-    if ( 
+    if (
       nombre.trim() === "" ||
-      email.trim() === "" ||   
+      apellido.trim() === "" ||
+      email.trim() === "" ||
       telefono.trim() === "" ||
       direccion.trim() === "" ||
       localidad.trim() === ""
@@ -32,7 +34,7 @@ function FormularioCompra() { // guardamos todos los datos que usaremos, inician
     }
 
     setMensaje(
-      `¡Gracias, ${nombre.trim()}! Tu formulario se envió correctamente.`
+      `¡Gracias, ${nombre.trim()} ${apellido.trim()}! Tu formulario se envió correctamente.`
     );
   }
 
@@ -41,9 +43,9 @@ function FormularioCompra() { // guardamos todos los datos que usaremos, inician
       <h2>Formulario de compra</h2>
 
       <form onSubmit={manejarEnvio}>
-        {/*campo de Nombre, el "type" indica que se espera un dato de tipo nombre,impide que enviemos el formulario con el campos vacio, por eso use "required*/}
+        {/*campo de Nombre, el "type" indica que se espera un dato de tipo nombre,impide que enviemos el formulario con el campos vacio, por eso use "required"*/}
         <div>
-          <label htmlFor="nombre">Nombre y apellido:</label>
+          <label htmlFor="nombre">Nombre:</label>
           <input
             id="nombre"
             type="text"
@@ -55,7 +57,23 @@ function FormularioCompra() { // guardamos todos los datos que usaremos, inician
             required
           />
         </div>
-        {/*campo de Email, el "type" indica que se espera un dato de tipo email,impide que enviemos el formulario con el campos vacio, por eso use "required**/}
+
+        {/*campo de Apellido, impide que enviemos el formulario con el campo vacio, por eso use "required"*/}
+        <div>
+          <label htmlFor="apellido">Apellido:</label>
+          <input
+            id="apellido"
+            type="text"
+            value={apellido}
+            onChange={(evento) => {
+              setApellido(evento.target.value);
+              setMensaje("");
+            }}
+            required
+          />
+        </div>
+
+        {/*campo de Email, el "type" indica que se espera un dato de tipo email,impide que enviemos el formulario con el campos vacio, por eso use "required"*/}
         <div>
           <label htmlFor="email">Correo electrónico:</label>
           <input
@@ -69,7 +87,8 @@ function FormularioCompra() { // guardamos todos los datos que usaremos, inician
             required
           />
         </div>
-        {/*campo deTelefono, el "type" indica que se espera un dato de tipo telefono, impide que enviemos el formulario con el campos vacio, por eso use "required**/}
+
+        {/*campo deTelefono, el "type" indica que se espera un dato de tipo telefono, impide que enviemos el formulario con el campos vacio, por eso use "required"*/}
         <div>
           <label htmlFor="telefono">Teléfono:</label>
           <input
@@ -83,7 +102,8 @@ function FormularioCompra() { // guardamos todos los datos que usaremos, inician
             required
           />
         </div>
-        {/*campo de Direccion, el "type" indica que se espera un dato de tipo direccion,impide que enviemos el formulario con el campos vacio, por eso use "required*/}
+
+        {/*campo de Direccion, el "type" indica que se espera un dato de tipo direccion,impide que enviemos el formulario con el campos vacio, por eso use "required"*/}
         <div>
           <label htmlFor="direccion">Dirección:</label>
           <input
@@ -97,7 +117,8 @@ function FormularioCompra() { // guardamos todos los datos que usaremos, inician
             required
           />
         </div>
-        {/*campo de Direccion, impide que enviemos el formulario con el campos vacio, por eso use "required*/}
+
+        {/*campo de Direccion, impide que enviemos el formulario con el campos vacio, por eso use "required"*/}
         <div>
           <label htmlFor="localidad">Localidad:</label>
           <input
@@ -147,7 +168,8 @@ function FormularioCompra() { // guardamos todos los datos que usaremos, inician
       </form>
 
       {mensaje !== "" && <p role="status">{mensaje}</p>}
-    </section>);
+    </section>
+  );
 }
-
+// {mensaje !== "" && <p role="status">{mensaje}</p>} indica si hay
 export default FormularioCompra;
