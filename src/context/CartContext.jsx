@@ -1,22 +1,30 @@
-import { createContext, useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 
-export const CartContext = createContext();
-export const useCart = () => {
-  const context = useContext(CartContext);
-  if (!context) {
-    throw new Error('useCart debe ser usado dentro de un CartProvider');
-  }
-  return context;
+// Producto inicial de regalo por defecto
+const productoRegalo = {
+  id: 'regalo-posavasos',
+  nombre: 'Posavasos Gamer "Tienda Gamer" 🎮',
+  precio: 50,
+  imagen: 'https://via.placeholder.com/150',
+  stock: 5,
+  cantidad: 1
 };
-export const CartProvider = ({ children }) => {
-  // Inicialización con try/catch contra datos corruptos en localStorage
+// Custom Hook que encapsula la lógica usando solo useState y useEffect
+export const useCarritoState = () => {
+  // Inicialización con lectura de localStorage
   const [carrito, setCarrito] = useState(() => {
     try {
       const guardado = localStorage.getItem('carrito_tienda');
-      return guardado ? JSON.parse(guardado) : [];
+      if (guardado) {
+        const parsed = JSON.parse(guardado);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      }
+      return [productoRegalo];
     } catch (error) {
       console.error('Error al leer de localStorage:', error);
-      return [];
+      return [productoRegalo];
     }
   });
   // Guardado automático en localStorage
@@ -27,7 +35,7 @@ export const CartProvider = ({ children }) => {
       console.error('Error al guardar en localStorage:', error);
     }
   }, [carrito]);
-  // Agregar al carrito: usa Math.min para no superar nunca el stock disponible
+  // Agregar producto respetando stock
   const agregarAlCarrito = (producto, cantidad = 1) => {
     const stockDisponible = producto.stock ?? Infinity;
     if (stockDisponible <= 0) return;
@@ -42,7 +50,7 @@ export const CartProvider = ({ children }) => {
         : [...prev, { ...producto, cantidad: Math.min(cantidad, stockDisponible) }];
     });
   };
-  // Aumentar cantidad: Math.min garantiza el tope máximo de stock en una sola línea
+  // Aumentar cantidad (tope alto de stock)
   const aumentarCantidad = (id) => {
     setCarrito((prev) =>
       prev.map((item) =>
@@ -52,7 +60,7 @@ export const CartProvider = ({ children }) => {
       )
     );
   };
-  // Disminuir cantidad: Math.max garantiza el tope mínimo de 1 unidad en una sola línea
+  // Disminuir cantidad (tope bajo de 1 unidad)
   const disminuirCantidad = (id) => {
     setCarrito((prev) =>
       prev.map((item) =>
@@ -68,23 +76,18 @@ export const CartProvider = ({ children }) => {
   };
   // Vaciar carrito
   const vaciarCarrito = () => setCarrito([]);
-  // Cálculos en tiempo real
+  // Totales calculados en tiempo real
   const totalItems = carrito.reduce((acum, item) => acum + item.cantidad, 0);
   const totalPrecio = carrito.reduce((acum, item) => acum + (item.precio || 0) * item.cantidad, 0);
-  return (
-    <CartContext.Provider
-      value={{
-        carrito,
-        agregarAlCarrito,
-        eliminarDelCarrito,
-        aumentarCantidad,
-        disminuirCantidad,
-        vaciarCarrito,
-        totalItems,
-        totalPrecio,
-      }}
-    >
-      {children}
-    </CartContext.Provider>
-  );
+
+  return {
+    carrito,
+    agregarAlCarrito,
+    aumentarCantidad,
+    disminuirCantidad,
+    eliminarDelCarrito,
+    vaciarCarrito,
+    totalItems,
+    totalPrecio
+  };
 };

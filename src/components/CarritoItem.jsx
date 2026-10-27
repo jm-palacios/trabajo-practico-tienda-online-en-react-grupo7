@@ -1,14 +1,11 @@
 import React from 'react';
-import { useCart } from '../context/CartContext';
 
-function CarritoItem({ item }) {
-  const { aumentarCantidad, disminuirCantidad, eliminarDelCarrito } = useCart();
+function CarritoItem({ item, aumentarCantidad, disminuirCantidad, eliminarDelCarrito }) {
   const subtotal = (item.precio || 0) * (item.cantidad || 1);
   const stockMaximoAlcanzado = item.stock !== undefined && item.cantidad >= item.stock;
   return (
     <div className="card bg-dark text-white border-secondary mb-3 shadow-sm">
       <div className="row g-0 align-items-center p-3">
-        {/* Imagen o ícono de respaldo sin parpadeo */}
         <div className="col-3 col-md-2 text-center">
           <div
             className="rounded border border-secondary d-flex align-items-center justify-content-center bg-black mx-auto overflow-hidden"
@@ -33,7 +30,6 @@ function CarritoItem({ item }) {
             )}
           </div>
         </div>
-        {/* Información del producto */}
         <div className="col-9 col-md-4 ps-2">
           <h5 className="card-title mb-1 fw-bold">{item.nombre}</h5>
           <p className="card-text text-secondary mb-1 small">
@@ -45,13 +41,12 @@ function CarritoItem({ item }) {
             </span>
           )}
         </div>
-        {/* Controles interactivos (+ / -) con topes protegidos */}
         <div className="col-6 col-md-3 mt-3 mt-md-0 d-flex align-items-center justify-content-md-center">
           <button
             type="button"
             className="btn btn-outline-secondary btn-sm text-white px-2 py-0"
             onClick={() => disminuirCantidad(item.id)}
-            disabled={item.cantidad <= 1} // Frena en 1 unidad
+            disabled={item.cantidad <= 1}
             title={item.cantidad <= 1 ? 'Mínimo 1 unidad' : 'Disminuir cantidad'}
           >
             -
@@ -61,13 +56,12 @@ function CarritoItem({ item }) {
             type="button"
             className="btn btn-outline-secondary btn-sm text-white px-2 py-0"
             onClick={() => aumentarCantidad(item.id)}
-            disabled={stockMaximoAlcanzado} // Frena en el stock máximo
+            disabled={stockMaximoAlcanzado}
             title={stockMaximoAlcanzado ? 'Límite de stock alcanzado' : 'Aumentar cantidad'}
           >
             +
           </button>
         </div>
-        {/* Subtotal y Eliminar */}
         <div className="col-6 col-md-3 mt-3 mt-md-0 d-flex align-items-center justify-content-between justify-content-md-end gap-3">
           <span className="fw-bold fs-5 text-primary">
             ${subtotal.toLocaleString('es-AR')}
@@ -85,4 +79,5 @@ function CarritoItem({ item }) {
     </div>
   );
 }
+
 export default CarritoItem;

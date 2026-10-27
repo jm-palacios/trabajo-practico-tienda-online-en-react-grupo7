@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
 import CarritoItem from '../components/CarritoItem';
 
-function Carrito() {
-  const { carrito, vaciarCarrito, totalItems, totalPrecio } = useCart();
-  // Estado local para controlar el mensaje de confirmación en pantalla
+function Carrito({ 
+  carrito, 
+  aumentarCantidad, 
+  disminuirCantidad, 
+  eliminarDelCarrito, 
+  vaciarCarrito, 
+  totalItems, 
+  totalPrecio 
+}) {
   const [compraConfirmada, setCompraConfirmada] = useState(false);
   const [datosUltimaCompra, setDatosUltimaCompra] = useState({ totalItems: 0, totalPrecio: 0 });
   const handleConfirmarCompra = () => {
     if (carrito.length === 0) return;
-    // Guardamos los totales para mostrarlos en el mensaje de éxito
     setDatosUltimaCompra({ totalItems, totalPrecio });
     setCompraConfirmada(true);
-    // Vaciamos el carrito tras confirmar la compra
     vaciarCarrito();
   };
-  // 1. Vista de Confirmación de Compra Exitosa (Cartel integrado)
   if (compraConfirmada) {
     return (
       <div className="container py-5 text-center text-white">
@@ -47,7 +49,6 @@ function Carrito() {
       </div>
     );
   }
-  // 2. Vista de Carrito Vacío
   if (carrito.length === 0) {
     return (
       <div className="container py-5 text-center text-white">
@@ -65,17 +66,21 @@ function Carrito() {
       </div>
     );
   }
-  // 3. Vista Principal del Carrito
   return (
     <div className="container py-4 text-white">
       <h2 className="mb-4 fw-bold">Mi Carrito de Compras</h2>
+
       <div className="row g-4">
-        {/* Columna Izquierda: Lista de productos */}
         <div className="col-lg-8">
           {carrito.map((item) => (
-            <CarritoItem key={item.id} item={item} />
+            <CarritoItem 
+              key={item.id} 
+              item={item} 
+              aumentarCantidad={aumentarCantidad} 
+              disminuirCantidad={disminuirCantidad} 
+              eliminarDelCarrito={eliminarDelCarrito} 
+            />
           ))}
-          {/* Botón para vaciar todo el carrito */}
           <div className="d-flex justify-content-start mt-3">
             <button
               type="button"
@@ -86,7 +91,6 @@ function Carrito() {
             </button>
           </div>
         </div>
-        {/* Columna Derecha: Resumen del Pedido */}
         <div className="col-lg-4">
           <div className="card bg-dark text-white border-secondary p-4 shadow-sm">
             <h4 className="fw-bold mb-3 border-bottom border-secondary pb-2">

@@ -1,11 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { CartProvider, useCart } from './context/CartContext';
+import { useCarritoState } from './context/CartContext';
 import Carrito from './pages/Carrito';
 
-// Navbar provisorio con estilo Dark consistente
-function NavbarProvisorio() {
-  const { totalItems } = useCart();
+function NavbarProvisorio({ totalItems }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-secondary px-4 py-3 mb-4 shadow-sm">
       <Link className="navbar-brand fw-bold text-white" to="/">
@@ -21,7 +19,6 @@ function NavbarProvisorio() {
     </nav>
   );
 }
-// Vista Home provisoria
 function HomeProvisorio() {
   return (
     <div className="container text-center py-5">
@@ -37,17 +34,14 @@ function HomeProvisorio() {
     </div>
   );
 }
-// Catálogo demo con tarjeta en modo oscuro y control visual de stock
-function ProductosProvisorio() {
-  const { carrito, agregarAlCarrito } = useCart();
+function ProductosProvisorio({ carrito, agregarAlCarrito }) {
   const productoDemo = {
     id: 1,
     nombre: 'Joystick Inalámbrico G7',
     precio: 45000,
-    imagen: 'https://via.placeholder.com/300x200', // Placeholder limpio sin errores
+    imagen: 'https://via.placeholder.com/300x200',
     stock: 5
   };
-  // Buscamos si el producto ya está en el carrito para verificar unidades agregadas
   const enCarrito = carrito.find((item) => item.id === productoDemo.id);
   const cantidadActual = enCarrito ? enCarrito.cantidad : 0;
   const sinStock = cantidadActual >= productoDemo.stock;
@@ -79,23 +73,48 @@ function ProductosProvisorio() {
   );
 }
 function App() {
+  // Obtenemos el estado y funciones sin usar Contexto
+  const {
+    carrito,
+    agregarAlCarrito,
+    aumentarCantidad,
+    disminuirCantidad,
+    eliminarDelCarrito,
+    vaciarCarrito,
+    totalItems,
+    totalPrecio
+  } = useCarritoState();
+
   return (
-    <CartProvider>
-      {/* NOTA: Si en main.jsx ya envolvieron con BrowserRouter, quitar este BrowserRouter para no duplicar */}
-      <BrowserRouter>
-        <div className="bg-dark text-white min-vh-100 d-flex flex-column">
-          <NavbarProvisorio />
-          <main className="flex-grow-1">
-            <Routes>
-              <Route path="/" element={<HomeProvisorio />} />
-              <Route path="/productos" element={<ProductosProvisorio />} />
-              <Route path="/carrito" element={<Carrito />} />
-              <Route path="*" element={<HomeProvisorio />} />
-            </Routes>
-          </main>
-        </div>
-      </BrowserRouter>
-    </CartProvider>
+    <BrowserRouter>
+      <div className="bg-dark text-white min-vh-100 d-flex flex-column">
+        <NavbarProvisorio totalItems={totalItems} />
+        <main className="flex-grow-1">
+          <Routes>
+            <Route path="/" element={<HomeProvisorio />} />
+            <Route 
+              path="/productos" 
+              element={<ProductosProvisorio carrito={carrito} agregarAlCarrito={agregarAlCarrito} />} 
+            />
+            <Route 
+              path="/carrito" 
+              element={
+                <Carrito 
+                  carrito={carrito} 
+                  aumentarCantidad={aumentarCantidad} 
+                  disminuirCantidad={disminuirCantidad} 
+                  eliminarDelCarrito={eliminarDelCarrito} 
+                  vaciarCarrito={vaciarCarrito} 
+                  totalItems={totalItems} 
+                  totalPrecio={totalPrecio} 
+                />
+              } 
+            />
+            <Route path="*" element={<HomeProvisorio />} />
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }
 
