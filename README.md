@@ -30,8 +30,8 @@ Sigue estos pasos para ejecutar el proyecto de manera local:
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone <URL_DEL_REPOSIUTORIO>
-   cd tienda-online-en-react-grupo7
+   git clone https://github.com/jm-palacios/trabajo-practico-tienda-online-en-react-grupo7.git
+   cd trabajo-practico-tienda-online-en-react-grupo7
 
 ## Integrantes del Grupo (Grupo 7)
 * Franco Nabuloni
