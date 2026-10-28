@@ -33,8 +33,14 @@ Sigue estos pasos para ejecutar el proyecto de manera local:
    git clone https://github.com/jm-palacios/trabajo-practico-tienda-online-en-react-grupo7.git
    cd trabajo-practico-tienda-online-en-react-grupo7
 
+2. **Instalar las dependencias necesarias:**
+   npm install
+
+3. **Ejecutar la Aplicación**
+   npm run dev
+
 ## Integrantes del Grupo (Grupo 7)
-* Franco Nabuloni
+* Franco Nebuloni
 * Mariana Alpern
 * Victor Marquina
 * Miguel Ignacio Sanchez
