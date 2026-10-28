@@ -1,3 +1,5 @@
+
+/*Variables para Bootstrap*/
 :root {
   --g7-bg: #0b0e17;        /* fondo general */
   --g7-surface: #131827;   /* cards, navbar, footer */
@@ -19,6 +21,7 @@
   --g7-font-heading: 'Rajdhani', 'Inter', system-ui, sans-serif;
 }
 
+/*Colores con Bootstrap */
 [data-bs-theme='dark'] {
   --bs-body-bg: var(--g7-bg);
   --bs-body-color: var(--g7-text);
@@ -30,27 +33,30 @@
   --bs-link-color-rgb: 124, 150, 255;
   --bs-link-hover-color-rgb: 61, 220, 132;
 
-  /* el gris de text-secondary contrasta poco sobre fondo oscuro */
   --bs-secondary-rgb: 154, 166, 196;
   --bs-secondary-color: var(--g7-muted);
 }
+
 
 body {
   font-family: var(--g7-font-body);
   background: var(--g7-bg);
 }
 
+/*Diseño Responsive*/
 #root {
   min-height: 100vh; /*Alto de la pantalla*/
   display: flex;
-  flex-direction: column;   /* hace que el footer (mt-auto) quede siempre abajo */
+  flex-direction: column;   /*hace que el footer (mt-auto) quede siempre abajo*/
 }
 
-h1, h2, h3, h4, h5, h6, .navbar-brand {
+/*Fuente para los textos y la barra de navegación*/
+h1, h2, h3, h4, h5, h6, .navbar-brand { 
   font-family: var(--g7-font-heading);
   font-weight: 700;
 }
 
+/*Seteando el color del fondo del modo oscuro de Bootstrap y el borde secundario */
 .bg-dark { background-color: var(--g7-bg) !important; }
 .border-secondary { border-color: var(--g7-border) !important; }
 
@@ -62,9 +68,11 @@ h1 .text-primary, h2 .text-primary {
   color: transparent !important;
 }
 
+/*Diseño del botón y efecto al pasar por arriba del mismo con el mouse*/
 .btn { font-weight: 600; border-radius: 0.6rem; transition: transform .15s ease; }
 .btn:not(:disabled):hover { transform: translateY(-1px); }
 
+/*Colores del botón*/
 .btn-primary {
   --bs-btn-bg: var(--g7-blue);
   --bs-btn-border-color: var(--g7-blue);
@@ -76,6 +84,7 @@ h1 .text-primary, h2 .text-primary {
   --bs-btn-disabled-color: #8d97b5;
 }
 
+/*El borde del botón y como cambia al pasarle el mouse por arriba*/
 .btn-outline-primary {
   --bs-btn-color: #8ea2ff;
   --bs-btn-border-color: var(--g7-blue);
@@ -85,16 +94,18 @@ h1 .text-primary, h2 .text-primary {
 
 :focus-visible { outline: 2px solid var(--g7-green); outline-offset: 2px; } /*Cuando se navega con TAB*/
 
+/*Color del fondo de la barra de búsqueda*/
 .navbar.bg-dark {
   background-color: rgba(19, 24, 39, 0.92) !important;
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--g7-border);
 }
 
+/*Apariencia de los links de la barra de navegación y cambios al pasar el mouse por encima*/
 .navbar .nav-link { position: relative; font-weight: 500; color: var(--g7-muted); }
 .navbar .nav-link:hover, .navbar .nav-link.active { color: #fff; }
 
-/* subrayado degradé que aparece en hover y en el link activo */
+/* subrayado degradé que aparece en hover y en el link activo*/
 .navbar .nav-link::after {
   content: '';
   position: absolute; left: 0; right: 0; bottom: -2px;
@@ -122,6 +133,7 @@ h1 .text-primary, h2 .text-primary {
 .hero h1 { font-size: clamp(2.2rem, 6vw, 4rem); text-transform: uppercase; line-height: 1.05; }
 .hero .btn-lg { padding: .8rem 2rem; border-radius: 999px; }
 
+/*Color de fondo para las cartas*/
 .card.bg-dark {
   background-color: var(--g7-surface) !important;
   border-color: var(--g7-border) !important;
@@ -144,14 +156,17 @@ h1 .text-primary, h2 .text-primary {
   transform: translateY(-4px);
   border-color: var(--g7-blue) !important;
 }
-
+/* Color del footer */
 footer.bg-dark {
   background-color: var(--g7-surface) !important;
   border-top: 1px solid var(--g7-border) !important;
 }
+
+/*Colores para los links del footer, con o sin hover.*/
 .footer-link { color: var(--g7-muted); display: inline-flex; transition: color .15s ease, transform .15s ease; }
 .footer-link:hover { color: var(--g7-green); transform: translateY(-2px); }
 
+/*Diseño para el formulario*/
 .form-control, .form-select {
   background-color: var(--g7-surface-2);
   border-color: var(--g7-border);
@@ -165,3 +180,56 @@ footer.bg-dark {
   color: var(--g7-text);
 }
 .form-control::placeholder { color: #6f7b9c; }
+
+.formulario-compra {
+  max-width: 850px;
+  margin: 0 auto;
+  border-radius: var(--g7-radius);
+  box-shadow: var(--g7-shadow);
+}
+
+.formulario-compra h2 {
+  font-size: clamp(1.7rem, 4vw, 2.2rem);
+}
+
+.formulario-compra .form-label {
+  color: var(--g7-text);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.formulario-compra .form-control,
+.formulario-compra .form-select {
+  min-height: 46px;
+  padding: 0.7rem 0.9rem;
+}
+
+.formulario-compra textarea.form-control {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.formulario-compra .btn {
+  min-height: 48px;
+}
+
+.formulario-compra .btn-primary {
+  box-shadow: 0 5px 15px rgba(79, 107, 255, 0.2);
+}
+
+
+/* Indicador de cantidad en el carrito del NavBar */
+.carrito-badge {
+  position: absolute;
+  top: -10px;
+  right: -12px;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  line-height: 1;
+  border: 2px solid #212529;
+}

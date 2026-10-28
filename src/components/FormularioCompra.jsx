@@ -52,16 +52,26 @@ function FormularioCompra({ onCompraConfirmada }) { // guardamos todos los datos
 }
 
   return (
-    <section>
-      <h2>Formulario de compra</h2>
+    <section className="formulario-compra card bg-dark text-white border-secondary shadow-sm p-4 p-md-5">
+      <div className="mb-4">
+        <h2 className="fw-bold mb-2">Formulario de compra</h2>
+        <p className="text-secondary mb-0">
+          Completá tus datos para confirmar el pedido.
+        </p>
+      </div>
 
-      <form onSubmit={manejarEnvio}>
+      <form onSubmit={manejarEnvio} className="row g-3">
+
         {/*campo de Nombre, el "type" indica que se espera un dato de tipo nombre,impide que enviemos el formulario con el campos vacio, por eso use "required"*/}
-        <div>
-          <label htmlFor="nombre">Nombre:</label>
+        <div className="col-md-6">
+          <label htmlFor="nombre" className="form-label">
+            Nombre
+          </label>
           <input
             id="nombre"
             type="text"
+            className="form-control"
+            placeholder="Tu nombre"
             value={nombre}
             onChange={(evento) => {
               setNombre(evento.target.value);
@@ -72,11 +82,13 @@ function FormularioCompra({ onCompraConfirmada }) { // guardamos todos los datos
         </div>
 
         {/*campo de Apellido, impide que enviemos el formulario con el campo vacio, por eso use "required"*/}
-        <div>
-          <label htmlFor="apellido">Apellido:</label>
+        <div className="col-md-6">
+          <label htmlFor="apellido" className="form-label">Apellido:</label>
           <input
             id="apellido"
             type="text"
+            className="form-control"
+            placeholder="Tu apellido"
             value={apellido}
             onChange={(evento) => {
               setApellido(evento.target.value);
@@ -87,11 +99,13 @@ function FormularioCompra({ onCompraConfirmada }) { // guardamos todos los datos
         </div>
 
         {/*campo de Email, el "type" indica que se espera un dato de tipo email,impide que enviemos el formulario con el campos vacio, por eso use "required"*/}
-        <div>
-          <label htmlFor="email">Correo electrónico:</label>
+        <div className="col-12">
+          <label htmlFor="email" className="form-label">Correo electrónico:</label>
           <input
             id="email"
             type="email"
+            className="form-control"
+            placeholder="Tu correo electrónico"
             value={email}
             onChange={(evento) => {
               setEmail(evento.target.value);
@@ -101,12 +115,14 @@ function FormularioCompra({ onCompraConfirmada }) { // guardamos todos los datos
           />
         </div>
 
-        {/*campo deTelefono, el "type" indica que se espera un dato de tipo telefono, impide que enviemos el formulario con el campos vacio, por eso use "required"*/}
-        <div>
-          <label htmlFor="telefono">Teléfono:</label>
+        {/*campo de Telefono, el "type" indica que se espera un dato de tipo telefono, impide que enviemos el formulario con el campos vacio, por eso use "required"*/}
+        <div className="col-md-6">
+          <label htmlFor="telefono" className="form-label">Teléfono:</label>
           <input
             id="telefono"
             type="tel"
+            className="form-control"
+            placeholder="Tu número de Teléfono"
             value={telefono}
             onChange={(evento) => {
               setTelefono(evento.target.value);
@@ -117,11 +133,13 @@ function FormularioCompra({ onCompraConfirmada }) { // guardamos todos los datos
         </div>
 
         {/*campo de Direccion, el "type" indica que se espera un dato de tipo direccion,impide que enviemos el formulario con el campos vacio, por eso use "required"*/}
-        <div>
-          <label htmlFor="direccion">Dirección:</label>
+        <div className="col-md-6">
+          <label htmlFor="direccion" className="form-label">Dirección:</label>
           <input
             id="direccion"
             type="text"
+            className="form-control"
+            placeholder="Tu Dirección"
             value={direccion}
             onChange={(evento) => {
               setDireccion(evento.target.value);
@@ -131,12 +149,14 @@ function FormularioCompra({ onCompraConfirmada }) { // guardamos todos los datos
           />
         </div>
 
-        {/*campo de Direccion, impide que enviemos el formulario con el campos vacio, por eso use "required"*/}
-        <div>
-          <label htmlFor="localidad">Localidad:</label>
+        {/*campo de Localidad, impide que enviemos el formulario con el campos vacio, por eso use "required"*/}
+        <div className="col-md-6">
+          <label htmlFor="localidad" className="form-label">Localidad:</label>
           <input
             id="localidad"
             type="text"
+            className="form-control"
+            placeholder="Tu localidad"
             value={localidad}
             onChange={(evento) => {
               setLocalidad(evento.target.value);
@@ -146,10 +166,12 @@ function FormularioCompra({ onCompraConfirmada }) { // guardamos todos los datos
           />
         </div>
 
-        <div>
-          <label htmlFor="metodoEntrega">Método de entrega:</label>
+        {/*Campo de Método de Entrega, Ya empieza con una opción de base, evitando que el campo esté vacio.*/}
+        <div className="col-md-6">
+          <label htmlFor="metodoEntrega" className="form-label">Método de entrega:</label>
           <select
             id="metodoEntrega"
+            className="form-control"
             value={metodoEntrega}
             onChange={(evento) => {
               setMetodoEntrega(evento.target.value);
@@ -161,13 +183,16 @@ function FormularioCompra({ onCompraConfirmada }) { // guardamos todos los datos
           </select>
         </div>
 
-        <div>
-          <label htmlFor="aclaraciones">
+        {/*Campo de Aclaraciones/Comentarios, es opcional por lo que no necesita un tag Required.*/ }
+        <div className="col-md-6">
+          <label htmlFor="aclaraciones" className="form-label">
             Aclaraciones adicionales (opcional):
           </label>
           {/*nos permite escribir las aclaraciones adicionales, en el campo "aclaraciones"*/}
           <textarea
             id="aclaraciones"
+            className="form-control"
+            placeholder="Comente sus aclaraciones"
             value={aclaraciones}
             onChange={(evento) => {
               setAclaraciones(evento.target.value);
@@ -176,11 +201,22 @@ function FormularioCompra({ onCompraConfirmada }) { // guardamos todos los datos
             rows="3"
           />
         </div>
-
-        <button type="submit">Confirmar compra</button>
+        
+        <div className="col-12 mt-4">
+            <button
+             type="submit"
+             className="btn btn-primary btn-lg w-100"
+            >
+              Confirmar compra
+            </button>
+        </div>
       </form>
 
-      {mensaje !== "" && <p role="status">{mensaje}</p>}
+      {mensaje !== "" && 
+        (<p className="alert alert-info mt-3 mb-0" role="status">
+          {mensaje}
+        </p>
+      )}
     </section>
   );
 }

@@ -4,8 +4,10 @@ import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa'; // <- Importamos el ícono
 import logoG7 from '../assets/G7.png';
+import { useCart } from '../context/CartContext';
 
 function AppNavbar() {
+  const { totalItems } = useCart();
   return (
     <Navbar bg="dark" data-bs-theme="dark" expand="md" className="py-2">
       <Container>
@@ -28,8 +30,16 @@ function AppNavbar() {
             <Nav.Link as={NavLink} to="/nosotros">Nosotros</Nav.Link>
             <Nav.Link as={NavLink} to="/productos">Productos</Nav.Link>
             <Nav.Link as={NavLink} to="/contacto">Contacto</Nav.Link>
-            <Nav.Link as={NavLink} to="/carrito" className="d-flex align-items-center gap-1">
-              <FaShoppingCart /> Carrito
+            <Nav.Link as={NavLink} to="/carrito" className="d-flex align-items-center gap-2 position-relative" aria-label={'Carrito de compras, ${totalItems} productos'}>
+              <span className="position-relative d-inline-flex">
+                <FaShoppingCart size={20}/> 
+                {totalItems > 0 && (
+                  <span className="badge rounded-pill bg-danger carrito-badge">
+                    {totalItems > 99 ? '99+' : totalItems} 
+                  </span>
+                )}
+              </span>
+              Carrito
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
