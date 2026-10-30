@@ -18,7 +18,7 @@ function CarritoItem({ item }) {
                 src={item.imagen}
                 alt={item.nombre}
                 className="img-fluid w-100 h-100"
-                style={{ objectFit: 'cover' }}
+                style={{ objectFit: 'contain' }}
                 onError={(e) => {
                   e.currentTarget.onerror = null;
                   e.currentTarget.style.display = 'none';
