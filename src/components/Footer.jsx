@@ -21,13 +21,13 @@ function Footer() {
 
         {/* Derecha: Redes Sociales + Email */}
         <div className="d-flex align-items-center gap-3 fs-5">
-          <a href="https://instagram.com" target="_blank" rel="noreferrer" className="text-secondary text-white-50-hover">
+          <a href="https://instagram.com" target="_blank" rel="noreferrer" className="footer-link"> {/*Cambie la clase por footer-link del CSS*/}
             <FaInstagram />
           </a>
-          <a href="https://facebook.com" target="_blank" rel="noreferrer" className="text-secondary text-white-50-hover">
+          <a href="https://facebook.com" target="_blank" rel="noreferrer" className="footer-link">
             <FaFacebook />
           </a>
-          <a href="https://x.com" target="_blank" rel="noreferrer" className="text-secondary text-white-50-hover">
+          <a href="https://x.com" target="_blank" rel="noreferrer" className="footer-link">
             <FaXTwitter />
           </a>
           <span className="border-start border-secondary ps-3 small text-secondary">

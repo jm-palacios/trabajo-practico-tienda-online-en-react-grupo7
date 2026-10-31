@@ -24,6 +24,41 @@
 
 ---
 
+## Capturas de pantalla
+
+### Página principal:
+<p align="center">
+   <img src="src/assets/Pagina Principal.png" alt="Página principal" width="800">
+</p>
+
+### Catálogo de productos:
+<p align="center">
+   <img src="src/assets/Pagina Productos.png" alt="Catálogo de Productos" width="800">
+</p>
+
+### Carrito de compras:
+Si el carrito está vacío, la página se verá así:
+<p align="center">
+   <img src="src/assets/Pagina Carrito Vacio.png" alt="Carrito Vacío" width="800">
+</p>
+
+Caso contrario, se verá así:
+<p align="center">
+   <img src="src/assets/Pagina Carrito a Comprar.png" alt="Carrito preparado para compras" width="800">
+</p>
+
+### Página de contacto:
+<p align="center">
+   <img src="src/assets/Pagina Contacto.png" alt="Contactos" width="800">
+</p>
+
+### Página de Nosotros:
+<p align="center">
+   <img src="src/assets/Pagina Nosotros.png" alt="Sobre Nosotros" width="800">
+</p>
+
+---
+
 ## Instrucciones para Instalar y Correr el Proyecto
 
 Sigue estos pasos para ejecutar el proyecto de manera local:
@@ -33,8 +68,16 @@ Sigue estos pasos para ejecutar el proyecto de manera local:
    git clone https://github.com/jm-palacios/trabajo-practico-tienda-online-en-react-grupo7.git
    cd trabajo-practico-tienda-online-en-react-grupo7
 
+2. **Instalar las dependencias necesarias:**
+   ```bash
+   npm install
+
+3. **Ejecutar la Aplicación:**
+   ```bash
+   npm run dev
+
 ## Integrantes del Grupo (Grupo 7)
-* Franco Nabuloni
+* Franco Nebuloni
 * Mariana Alpern
 * Victor Marquina
 * Miguel Ignacio Sanchez

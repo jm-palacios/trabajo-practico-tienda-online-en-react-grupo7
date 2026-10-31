@@ -1,13 +1,32 @@
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import { useFavorites } from '../context/FavoritesContext';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 function ProductoCard({ producto, onAgregarAlCarrito }) {
-  // Desestructuramos los datos del objeto producto
   const { id, nombre, descripcion, precio, imagen, stock } = producto;
+  const { toggleFavorito, esFavorito } = useFavorites();
+  const enFavoritos = esFavorito(id);
 
   return (
-    <Card className="bg-dark text-white border-secondary h-100 shadow-sm">
+    <Card className="bg-dark text-white border-secondary h-100 shadow-sm position-relative">
+      {/* Botón flotante de Favorito */}
+      <Button
+        variant="dark"
+        size="sm"
+        className="position-absolute top-0 end-0 m-2 border-secondary rounded-circle p-2 d-flex align-items-center justify-content-center"
+        style={{ width: '36px', height: '36px', zIndex: 2 }}
+        onClick={() => toggleFavorito(producto)}
+        title={enFavoritos ? 'Quitar de favoritos' : 'Agregar a favoritos'}
+      >
+        {enFavoritos ? (
+          <FaHeart className="text-danger fs-6" />
+        ) : (
+          <FaRegHeart className="text-secondary fs-6" />
+        )}
+      </Button>
+
       <Card.Img
         variant="top"
         src={imagen || "https://via.placeholder.com/300x200"}
@@ -55,5 +74,5 @@ function ProductoCard({ producto, onAgregarAlCarrito }) {
     </Card>
   );
 }
- 
-export default ProductoCard
+
+export default ProductoCard;

@@ -15,7 +15,7 @@ function Inicio() {
   return (
     <div className="bg-dark text-white">
       {/* 1. HERO SECTION */}
-      <section className="py-5 text-center bg-gradient border-bottom border-secondary">
+      <section className="hero py-5 text-center border-bottom border-secondary"> {/*Cambie el bg-gradient por el hero customizado*/}
         <Container className="py-4">
           <h1 className="display-4 fw-bold text-white mb-3">
             ELEVÁ TU EXPERIENCIA <span className="text-primary">GAMER</span>

@@ -2,20 +2,34 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import CarritoItem from '../components/CarritoItem';
+import FormularioCompra from '../components/FormularioCompra';
 
 function Carrito() {
   const { carrito, vaciarCarrito, totalItems, totalPrecio } = useCart();
   // Estado local para controlar el mensaje de confirmación en pantalla
+
   const [compraConfirmada, setCompraConfirmada] = useState(false);
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  
   const [datosUltimaCompra, setDatosUltimaCompra] = useState({ totalItems: 0, totalPrecio: 0 });
+
   const handleConfirmarCompra = () => {
     if (carrito.length === 0) return;
     // Guardamos los totales para mostrarlos en el mensaje de éxito
-    setDatosUltimaCompra({ totalItems, totalPrecio });
-    setCompraConfirmada(true);
-    // Vaciamos el carrito tras confirmar la compra
-    vaciarCarrito();
+    setMostrarFormulario(true);
   };
+
+  const handleFinalizarCompra = (datosComprador) => {
+    setDatosUltimaCompra({
+      totalItems,
+      totalPrecio,
+    });
+    console.log('Datos del Comprador: ', datosComprador);
+    setMostrarFormulario(false);
+    setCompraConfirmada(true);
+    vaciarCarrito();
+  }
+
   // 1. Vista de Confirmación de Compra Exitosa (Cartel integrado)
   if (compraConfirmada) {
     return (
@@ -38,7 +52,10 @@ function Carrito() {
             <Link 
               to="/productos" 
               className="btn btn-primary px-4 py-2 fw-bold"
-              onClick={() => setCompraConfirmada(false)}
+              onClick={() => {
+                setCompraConfirmada(false);
+                setMostrarFormulario(false);  
+              }}
             >
               Volver al Catálogo
             </Link>
@@ -47,6 +64,7 @@ function Carrito() {
       </div>
     );
   }
+
   // 2. Vista de Carrito Vacío
   if (carrito.length === 0) {
     return (
@@ -65,6 +83,7 @@ function Carrito() {
       </div>
     );
   }
+
   // 3. Vista Principal del Carrito
   return (
     <div className="container py-4 text-white">
@@ -80,7 +99,10 @@ function Carrito() {
             <button
               type="button"
               className="btn btn-outline-danger btn-sm"
-              onClick={vaciarCarrito}
+              onClick={() => {
+                vaciarCarrito();
+                setMostrarFormulario(false);
+              }}
             >
               Vaciar Carrito
             </button>
@@ -102,19 +124,40 @@ function Carrito() {
                 ${totalPrecio.toLocaleString('es-AR')}
               </span>
             </div>
-            <button
+            {!mostrarFormulario && (
+              <button
               type="button"
               className="btn btn-primary w-100 py-2 fw-bold"
               onClick={handleConfirmarCompra}
             >
               Confirmar Compra
             </button>
+            )}
             <small className="text-secondary text-center d-block mt-2">
               Simulación de compra sin cobro real
             </small>
           </div>
         </div>
       </div>
+      
+      {/* 4. Formulario de compra */}
+      {mostrarFormulario && (
+        <div className="row mt-3">
+          <div className="col-lg-8 mx-auto">
+            <FormularioCompra
+              onCompraConfirmada={handleFinalizarCompra}
+            />
+
+            <button
+              type="button"
+              className="btn btn-outline-light mt-3"
+              onClick={() => setMostrarFormulario(false)}
+            >
+              Volver al carrito
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
