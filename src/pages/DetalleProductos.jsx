@@ -5,14 +5,17 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
 import ListGroup from 'react-bootstrap/ListGroup';
+import Alert from "react-bootstrap/Alert";
 import { productos } from '../data/productos';
 import { useCart } from '../context/CartContext';
+import { useFavorites } from '../context/FavoritesContext';
 import { useState } from "react";
-import Alert from "react-bootstrap/Alert";
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 function DetalleProductos({ onAgregarAlCarrito }) {
   const { id } = useParams();
   const { agregarAlCarrito } = useCart();
+  const { toggleFavorito, esFavorito } = useFavorites();
   const [mensaje, setMensaje] = useState("");
   
   // Buscar producto por ID
@@ -33,12 +36,12 @@ function DetalleProductos({ onAgregarAlCarrito }) {
     );
   }
 
+  const enFavoritos = esFavorito(producto.id);
+
   const handleAgregar = () => {
     if (agregarAlCarrito) {
       agregarAlCarrito(producto);
       setMensaje(`${producto.nombre} se agregó al carrito.`);
-    } else {
-      
     }
   };
 
@@ -102,7 +105,6 @@ function DetalleProductos({ onAgregarAlCarrito }) {
               </Alert>
             )}
 
-
             {/* CARACTERÍSTICAS PRINCIPALES */}
             {producto.caracteristicas && producto.caracteristicas.length > 0 && (
               <div className="mb-4">
@@ -117,16 +119,32 @@ function DetalleProductos({ onAgregarAlCarrito }) {
               </div>
             )}
 
-            {/* BOTÓN AGREGAR AL CARRITO */}
-            <Button
-              variant="primary"
-              size="lg"
-              disabled={producto.stock <= 0}
-              onClick={handleAgregar}
-              className="w-100 fw-bold py-2"
-            >
-              {producto.stock > 0 ? 'Agregar al carrito' : 'Sin stock'}
-            </Button>
+            {/* ACCIONES: BOTÓN AGREGAR AL CARRITO Y BOTÓN DE FAVORITOS */}
+            <div className="d-flex gap-2 mt-4">
+              <Button
+                variant="primary"
+                size="lg"
+                disabled={producto.stock <= 0}
+                onClick={handleAgregar}
+                className="w-100 fw-bold py-2"
+              >
+                {producto.stock > 0 ? 'Agregar al carrito' : 'Sin stock'}
+              </Button>
+
+              <Button
+                variant="outline-secondary"
+                size="lg"
+                onClick={() => toggleFavorito(producto)}
+                className="d-flex align-items-center justify-content-center px-3"
+                title={enFavoritos ? 'Quitar de favoritos' : 'Agregar a favoritos'}
+              >
+                {enFavoritos ? (
+                  <FaHeart className="text-danger fs-4" />
+                ) : (
+                  <FaRegHeart className="text-secondary fs-4" />
+                )}
+              </Button>
+            </div>
           </Col>
         </Row>
       </Container>
