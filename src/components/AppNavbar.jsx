@@ -2,14 +2,28 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
-import { FaShoppingCart } from 'react-icons/fa'; // <- Importamos el ícono
+import { FaShoppingCart, FaSun, FaMoon } from 'react-icons/fa'; // <- Importamos el ícono
 import logoG7 from '../assets/G7.png';
 import { useCart } from '../context/CartContext';
 import { useFavorites } from '../context/FavoritesContext';
+import { useState, useEffect } from 'react';
 
 function AppNavbar() {
   const { totalItems } = useCart();
   const { totalFavoritos } = useFavorites();
+  const [tema, setTema] = useState(() => {
+    return localStorage.getItem('tema') || 'dark';
+  }); 
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-bs-theme', tema);
+    localStorage.setItem('tema', tema);
+  }, [tema]);
+
+  const cambiarTema = () => {
+    setTema((temaActual) => temaActual === 'dark' ? 'light' : 'dark');
+  };
+
   return (
     <Navbar bg="dark" data-bs-theme="dark" expand="md" className="py-2">
       <Container>
@@ -51,6 +65,19 @@ function AppNavbar() {
               </span>
               Carrito
             </Nav.Link>
+
+            <button 
+              type="button"
+              className="btn btn-outline-primary ms-md-2"
+              onClick={cambiarTema}
+              aria-label={tema === 'dark' ? 'Activar modo Claro' : 'Activar modo Oscuro'}
+              title={tema === 'dark' ? 'Activar modo Claro' : 'Activar modo Oscuro'}
+              >
+                {tema === 'dark' ? <FaSun/> : <FaMoon/>}
+                <span className='ms-2'>
+                  {tema === 'dark' ? 'Modo Claro' : 'Modo Oscuro'}
+                </span>
+              </button>
           </Nav>
         </Navbar.Collapse>
       </Container>

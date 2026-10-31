@@ -20,7 +20,7 @@
   --g7-font-heading: 'Rajdhani', 'Inter', system-ui, sans-serif;
 }
 
-/*Colores con Bootstrap */
+/*Colores con Bootstrap - Modo Oscuro*/
 [data-bs-theme='dark'] {
   --bs-body-bg: var(--g7-bg);
   --bs-body-color: var(--g7-text);
@@ -36,10 +36,45 @@
   --bs-secondary-color: var(--g7-muted);
 }
 
+/*Colores con Bootstrap - Modo Claro*/
+[data-bs-theme='light'] {
+  --g7-bg: #f4f6fb;
+  --g7-surface: #ffffff;
+  --g7-surface-2: #e9edf5;
+  --g7-border: #d5dbea;
+  --g7-text: #20283a;
+  --g7-muted: #626d82;
+
+  --g7-blue: #3a53e0;
+  --g7-blue-dark: #293fc0;
+  --g7-green: #159957;
+
+  --g7-gradient: linear-gradient(90deg, #3a53e0 0%, #159957 100%);
+
+  --bs-body-bg: var(--g7-bg);
+  --bs-body-color: var(--g7-text);
+  --bs-body-font-family: var(--g7-font-body);
+  --bs-border-color: var(--g7-border);
+
+  --bs-primary: var(--g7-blue);
+  --bs-primary-rgb: 58, 83, 224;
+  --bs-link-color-rgb: 58, 83, 224;
+  --bs-link-hover-color-rgb: 21, 153, 87;
+
+  --bs-secondary-rgb: 98, 109, 130;
+  --bs-secondary-color: var(--g7-muted);
+}
+
 
 body {
   font-family: var(--g7-font-body);
   background: var(--g7-bg);
+  color: var(--g7-text);
+  transition: background-color .2s ease, color .2s ease;
+}
+
+[data-bs-theme='light'] .text-white {
+  color: var(--g7-text) !important;
 }
 
 /*Diseño Responsive*/
@@ -93,16 +128,16 @@ h1 .text-primary, h2 .text-primary {
 
 :focus-visible { outline: 2px solid var(--g7-green); outline-offset: 2px; } /*Cuando se navega con TAB*/
 
-/*Color del fondo de la barra de búsqueda*/
+/*Color del fondo de la barra de navegación*/
 .navbar.bg-dark {
-  background-color: rgba(19, 24, 39, 0.92) !important;
+  background-color: var(--g7-surface) !important;
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--g7-border);
 }
 
 /*Apariencia de los links de la barra de navegación y cambios al pasar el mouse por encima*/
 .navbar .nav-link { position: relative; font-weight: 500; color: var(--g7-muted); }
-.navbar .nav-link:hover, .navbar .nav-link.active { color: #fff; }
+.navbar .nav-link:hover, .navbar .nav-link.active { color: var(--g7-text); }
 
 /* subrayado degradé que aparece en hover y en el link activo*/
 .navbar .nav-link::after {
