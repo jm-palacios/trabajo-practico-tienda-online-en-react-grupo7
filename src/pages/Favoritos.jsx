@@ -102,7 +102,7 @@ function Favoritos() {
                     <FaShoppingCart className="me-2" /> Agregar al Carrito
                   </button>
                   <Link
-                    to={`/producto/${producto.id}`}
+                    to={`/productos/${producto.id}`}
                     className="btn btn-outline-primary btn-sm"
                   >
                     Ver Detalle
