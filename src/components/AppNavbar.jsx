@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
-import { FaShoppingCart, FaSun, FaMoon } from 'react-icons/fa'; // <- Importamos el ícono
+import { FaShoppingCart, FaSun, FaMoon } from 'react-icons/fa';
 import logoG7 from '../assets/G7.png';
 import { useCart } from '../context/CartContext';
 import { useFavorites } from '../context/FavoritesContext';
@@ -13,7 +13,7 @@ function AppNavbar() {
   const { totalFavoritos } = useFavorites();
   const [tema, setTema] = useState(() => {
     return localStorage.getItem('tema') || 'dark';
-  }); 
+  });
 
   useEffect(() => {
     document.documentElement.setAttribute('data-bs-theme', tema);
@@ -21,11 +21,12 @@ function AppNavbar() {
   }, [tema]);
 
   const cambiarTema = () => {
-    setTema((temaActual) => temaActual === 'dark' ? 'light' : 'dark');
+    setTema((temaActual) => (temaActual === 'dark' ? 'light' : 'dark'));
   };
 
   return (
-    <Navbar bg="dark" data-bs-theme="dark" expand="md" className="py-2">
+    // Quitamos data-bs-theme="dark" para que la Navbar acompañe al tema global
+    <Navbar bg="dark" expand="md" className="py-2">
       <Container>
         <Navbar.Brand as={NavLink} to="/" className="d-flex align-items-center gap-2">
           <img
@@ -54,7 +55,14 @@ function AppNavbar() {
                 </span>
               )}
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/carrito" className="d-flex align-items-center gap-2 position-relative" aria-label={'Carrito de compras, ${totalItems} productos'}>
+
+            {/* Corregido el template literal con backticks (`) */}
+            <Nav.Link 
+              as={NavLink} 
+              to="/carrito" 
+              className="d-flex align-items-center gap-2 position-relative" 
+              aria-label={`Carrito de compras, ${totalItems} productos`}
+            >
               <span className="position-relative d-inline-flex">
                 <FaShoppingCart size={20} />
                 {totalItems > 0 && (
@@ -66,18 +74,26 @@ function AppNavbar() {
               Carrito
             </Nav.Link>
 
+            {/* Botón integrado como si fuera un Nav.Link más */}
             <button 
               type="button"
-              className="btn btn-outline-primary ms-md-2"
+              className="btn nav-link d-flex align-items-center gap-2 border-0 px-2 py-1 ms-md-2"
               onClick={cambiarTema}
               aria-label={tema === 'dark' ? 'Activar modo Claro' : 'Activar modo Oscuro'}
               title={tema === 'dark' ? 'Activar modo Claro' : 'Activar modo Oscuro'}
-              >
-                {tema === 'dark' ? <FaSun/> : <FaMoon/>}
-                <span className='ms-2'>
-                  {tema === 'dark' ? 'Modo Claro' : 'Modo Oscuro'}
-                </span>
-              </button>
+            >
+              {tema === 'dark' ? (
+                <>
+                  <FaSun className="text-warning" size={18} />
+                  <span>Modo Claro</span>
+                </>
+              ) : (
+                <>
+                  <FaMoon className="text-info" size={18} />
+                  <span>Modo Oscuro</span>
+                </>
+              )}
+            </button>
           </Nav>
         </Navbar.Collapse>
       </Container>
