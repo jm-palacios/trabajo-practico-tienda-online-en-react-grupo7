@@ -57,6 +57,10 @@ Caso contrario, se verá así:
    <img src="src/assets/Pagina Nosotros.png" alt="Sobre Nosotros" width="800">
 </p>
 
+# G7 Games - Plataforma de E-Commerce Gamer
+
+> 🚀 **Demo en vivo:** [https://trabajo-practico-tienda-online-en-r.vercel.app](https://trabajo-practico-tienda-online-en-r.vercel.app)
+
 ---
 
 ## Instrucciones para Instalar y Correr el Proyecto
