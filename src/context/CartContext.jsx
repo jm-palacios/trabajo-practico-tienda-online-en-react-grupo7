@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect, useContext } from 'react';
+import posavasos from '../assets/Posavasos Gamer.webp';
 
 export const CartContext = createContext();
 export const useCart = () => {
@@ -8,17 +9,38 @@ export const useCart = () => {
   }
   return context;
 };
+
+// Producto inicial de regalo por defecto
+const productoRegalo = {
+  id: 'regalo-posavasos',
+  nombre: 'Posavasos Gamer "Tienda Gamer" 🎮',
+  precio: 50,
+  imagen: posavasos,
+  stock: 5,
+  cantidad: 1
+};
+
+
+
 export const CartProvider = ({ children }) => {
   // Inicialización con try/catch contra datos corruptos en localStorage
   const [carrito, setCarrito] = useState(() => {
     try {
       const guardado = localStorage.getItem('carrito_tienda');
-      return guardado ? JSON.parse(guardado) : [];
+      console.log('Carrito al iniciar:', guardado);
+
+      if (guardado !== null) {
+        const parsed = JSON.parse(guardado);
+        return Array.isArray(parsed) ? parsed : [];
+      }
+      
+      return [productoRegalo]; // Si no hay datos, inicializa con el producto de regalo
     } catch (error) {
       console.error('Error al leer de localStorage:', error);
       return [];
     }
   });
+
   // Guardado automático en localStorage
   useEffect(() => {
     try {
@@ -27,6 +49,7 @@ export const CartProvider = ({ children }) => {
       console.error('Error al guardar en localStorage:', error);
     }
   }, [carrito]);
+
   // Agregar al carrito: usa Math.min para no superar nunca el stock disponible
   const agregarAlCarrito = (producto, cantidad = 1) => {
     const stockDisponible = producto.stock ?? Infinity;
@@ -42,6 +65,7 @@ export const CartProvider = ({ children }) => {
         : [...prev, { ...producto, cantidad: Math.min(cantidad, stockDisponible) }];
     });
   };
+
   // Aumentar cantidad: Math.min garantiza el tope máximo de stock en una sola línea
   const aumentarCantidad = (id) => {
     setCarrito((prev) =>
@@ -52,6 +76,7 @@ export const CartProvider = ({ children }) => {
       )
     );
   };
+
   // Disminuir cantidad: Math.max garantiza el tope mínimo de 1 unidad en una sola línea
   const disminuirCantidad = (id) => {
     setCarrito((prev) =>
@@ -62,12 +87,15 @@ export const CartProvider = ({ children }) => {
       )
     );
   };
+
   // Eliminar producto por ID
   const eliminarDelCarrito = (id) => {
     setCarrito((prev) => prev.filter((item) => item.id !== id));
   };
+
   // Vaciar carrito
   const vaciarCarrito = () => setCarrito([]);
+
   // Cálculos en tiempo real
   const totalItems = carrito.reduce((acum, item) => acum + item.cantidad, 0);
   const totalPrecio = carrito.reduce((acum, item) => acum + (item.precio || 0) * item.cantidad, 0);
