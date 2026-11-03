@@ -12,7 +12,7 @@ import { useFavorites } from '../context/FavoritesContext';
 import { useState } from "react";
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
-function DetalleProductos({ onAgregarAlCarrito }) {
+function DetalleProductos() {
   const { id } = useParams();
   const { agregarAlCarrito } = useCart();
   const { toggleFavorito, esFavorito } = useFavorites();

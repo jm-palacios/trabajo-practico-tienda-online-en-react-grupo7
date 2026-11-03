@@ -268,3 +268,60 @@ footer.bg-dark {
   line-height: 1;
   border: 2px solid #212529;
 }
+
+.buscador-filtros {
+  background: var(--g7-surface);
+  border: 1px solid var(--g7-border);
+  border-radius: var(--g7-radius);
+  padding: 1.5rem;
+  box-shadow: var(--g7-shadow);
+}
+
+.buscador-filtros h2 {
+  color: var(--g7-text);
+  font-family: var(--g7-font-heading);
+}
+
+.buscador-filtros .form-label {
+  color: var(--g7-text);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.buscador-filtros .form-control,
+.buscador-filtros .form-select {
+  min-height: 44px;
+  background-color: var(--g7-surface-2);
+  border: 1px solid var(--g7-border);
+  color: var(--g7-text);
+  border-radius: 0.6rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.buscador-filtros .form-control:focus,
+.buscador-filtros .form-select:focus {
+  border-color: var(--g7-blue);
+  box-shadow: 0 0 0 0.2rem rgba(79, 107, 255, 0.2);
+}
+
+.buscador-filtros .form-control::placeholder {
+  color: var(--g7-muted);
+  opacity: 0.8;
+}
+
+/* Botón para limpiar filtros */
+.buscador-filtros .btn-outline-primary {
+  border-radius: 0.6rem;
+  font-weight: 600;
+}
+
+/* Ajustes para celulares */
+@media (max-width: 575.98px) {
+  .buscador-filtros {
+    padding: 1rem;
+  }
+
+  .buscador-filtros h2 {
+    font-size: 1.2rem;
+  }
+}

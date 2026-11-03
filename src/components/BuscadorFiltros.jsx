@@ -1,74 +1,82 @@
-import { useState } from "react";
+import { Form, Row, Col, Button } from "react-bootstrap";
 
-function BuscadorFiltros({ productos = [] }) {
-  // Guardamos lo que escribe o selecciona el usuario
-  const [busqueda, setBusqueda] = useState("");
-  const [categoria, setCategoria] = useState("Todas");
-  const [ordenPrecio, setOrdenPrecio] = useState("ninguno");
-
-  // Filtramos por nombre y categoría
-  const productosFiltrados = productos.filter((producto) => {
-    const coincideNombre = producto.nombre
-      .toLowerCase()
-      .includes(busqueda.toLowerCase());
-
-    const coincideCategoria =
-      categoria === "Todas" || producto.categoria === categoria;
-
-    return coincideNombre && coincideCategoria;
-  });
-
-  // Ordenamos por precio
-  if (ordenPrecio === "menor") {
-    productosFiltrados.sort((a, b) => a.precio - b.precio);
-  }
-
-  if (ordenPrecio === "mayor") {
-    productosFiltrados.sort((a, b) => b.precio - a.precio);
-  }
-
+function BuscadorFiltros({ 
+  busqueda,
+  setBusqueda,
+  categoria,
+  setCategoria,
+  ordenPrecio,
+  setOrdenPrecio,
+  limpiarFiltros
+}) {
   return (
-    <section>
-      <h2>Buscar productos</h2>
+    <section className="buscador-filtros mb-5">
 
-      <input
-        type="text"
-        placeholder="Buscar por nombre..."
-        value={busqueda}
-        onChange={(evento) => setBusqueda(evento.target.value)}
-      />
+      <div className="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+        <h2 className="h4 fw-bold mb-0">
+          Buscar y filtrar productos
+        </h2>
 
-      <select
-        value={categoria}
-        onChange={(evento) => setCategoria(evento.target.value)}
-      >
-        <option value="Todas">Todas las categorías</option>
-        <option value="Videojuegos">Videojuegos</option>
-        <option value="Accesorios">Accesorios</option>
-        <option value="Servicios">Servicios</option>
-        <option value="Hardware">Hardware</option>
-      </select>
+        <Button
+          variant="outline-primary"
+          size="sm"
+          onClick={limpiarFiltros}
+        >
+          Limpiar filtros
+        </Button>
+      </div>
 
-      <select
-        value={ordenPrecio}
-        onChange={(evento) => setOrdenPrecio(evento.target.value)}
-      >
-        <option value="ninguno">Orden original</option>
-        <option value="menor">Precio: menor a mayor</option>
-        <option value="mayor">Precio: mayor a menor</option>
-      </select>
+      <Row className="g-3">
 
-      <ul>
-        {productosFiltrados.map((producto) => (
-          <li key={producto.id}>
-            {producto.nombre} - ${producto.precio}
-          </li>
-        ))}
-      </ul>
+        {/* BUSCADOR */}
+        <Col xs={12} md={4}>
+          <Form.Group>
+            <Form.Label>Buscar producto</Form.Label>
 
-      {productosFiltrados.length === 0 && (
-        <p>No se encontraron productos.</p>
-      )}
+            <Form.Control
+              type="text"
+              placeholder="Ej: The Sims..."
+              value={busqueda}
+              onChange={(e) => setBusqueda(e.target.value)}
+            />
+          </Form.Group>
+        </Col>
+
+        {/* CATEGORÍAS */}
+        <Col xs={12} md={4}>
+          <Form.Group>
+            <Form.Label>Categoría</Form.Label>
+
+            <Form.Select
+              value={categoria}
+              onChange={(e) => setCategoria(e.target.value)}
+            >
+              <option value="Todas">Todas las categorías</option>
+              <option value="Videojuegos">Videojuegos</option>
+              <option value="Accesorios">Accesorios</option>
+              <option value="Servicios">Servicios</option>
+              <option value="Hardware">Hardware</option>
+            </Form.Select>
+          </Form.Group>
+        </Col>
+
+        {/* ORDEN POR PRECIO */}
+        <Col xs={12} md={4}>
+          <Form.Group>
+            <Form.Label>Ordenar por precio</Form.Label>
+
+            <Form.Select
+              value={ordenPrecio}
+              onChange={(e) => setOrdenPrecio(e.target.value)}
+            >
+              <option value="ninguno">Orden original</option>
+              <option value="menor">Menor a mayor</option>
+              <option value="mayor">Mayor a menor</option>
+            </Form.Select>
+          </Form.Group>
+        </Col>
+
+      </Row>
     </section>
   );
 }
